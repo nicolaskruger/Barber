@@ -1,0 +1,32 @@
+:root{
+    --bcColor: rgb(112, 89, 89);
+    --separator: 2px
+}
+.IncHairCut,.IncClient{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bcColor);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.IncHairCut__Form,.IncClient__Form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.IncHairCut__Form__cont{
+    margin: 10px;
+    width: 80vw;
+}
+
+@media (min-width: 1000px){
+    .IncHairCut__Form__cont{
+        font-size: 2vw;
+    }
+}

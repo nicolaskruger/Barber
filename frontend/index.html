@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/default.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/incHairCut.css">
+    <link rel="stylesheet" href="./css/change.css">
+    <link rel="stylesheet" href="./css/ErroMsg.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/ImgClose.css">
+    <link rel="stylesheet" href="./css/section.css">
+    <title>Barber</title>
+</head>
+<body>
+    <header class="Head">
+        <h1 class="Head__titulo">Barber</h1>
+        <img class="Head_img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Scissors_icon_black.svg/1200px-Scissors_icon_black.svg.png" alt="Barber">
+    </header>
+    <main class="Main">
+       
+    </main>
+    <section class="IncHairCut inv">
+        
+    </section>
+    <section class="IncClient inv">
+
+    </section>
+    <section class="Client inv">
+        
+    </section>
+    <div class="Nav">
+        <button class="Nav__bt addC">add Cliente</button>
+        <button class="Nav__bt addH">add Corte</button>
+        <button class="Nav__bt toogle">Clientes</button> 
+    </div>
+    <script src="node_modules/systemjs/dist/system.js"></script>
+    <script>
+        System.defaultJSExtensions = true;
+        System.import('dist/app.js').catch(function(err){
+            console.error(err);
+        });
+    </script>
+</body>
+</html>

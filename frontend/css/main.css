@@ -1,0 +1,36 @@
+:root{
+    --bcColor: rgb(112, 89, 89);
+    --separator: 2px
+}
+.Main, .Client{
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+/* .Client{
+    margin-bottom: 50px;
+} */
+.Main_back, .ClienteList{
+    background-color:var(--bcColor);
+    width: 50%;
+    padding: var(--separator);
+}
+.Main__table, .ClienteList__table{
+    color:  var(--bcColor);
+    display: grid;
+    grid-template-columns: 3fr 3fr 1fr 1fr;
+    grid-gap: var(--separator);
+    /* padding: 30px 0 0 30px; */
+}
+.Main__Tb{
+    font-size: 1.8vw;
+    background-color: black;
+}
+@media (max-width: 800px){
+    .Main__Tb{
+        font-size: 15px;
+        background-color: black;
+    }   
+}

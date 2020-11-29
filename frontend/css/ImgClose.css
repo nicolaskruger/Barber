@@ -1,0 +1,15 @@
+.ImgClose{
+    display: flex;
+    justify-content: flex-end;
+    width: 80%;
+}
+.ImgClose > img{
+    width: 20px;
+    align-self: flex-end;
+    cursor: pointer;
+    transition: 100ms;
+}
+
+.ImgClose > img:hover{
+    opacity: 0.5;
+}

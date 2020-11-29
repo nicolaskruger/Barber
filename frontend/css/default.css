@@ -1,0 +1,10 @@
+:root{
+    font-family: 'Lobster', cursive;
+    --bcScreen: rgb(37, 37, 37)
+}
+button{
+    font-family: 'Lobster', cursive;
+}
+html{
+    background-color: rgb(37, 37, 37);
+}

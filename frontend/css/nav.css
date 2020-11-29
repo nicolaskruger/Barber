@@ -1,0 +1,12 @@
+.Nav{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.Nav__bt{
+    margin: 10px;
+    background-color: rosybrown;
+    border: 2px rosybrown solid;
+    border-radius: 5px;
+}

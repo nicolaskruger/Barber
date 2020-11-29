@@ -1,0 +1,19 @@
+:root{
+    --paddingHead : 25px;
+    --backHeader: rgb(134, 100, 100);
+}
+
+.Head{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 var(--paddingHead);
+    align-items: center;
+    background-color: var(--backHeader);
+    height: 50px;
+}
+.Head__titulo{
+    font-size: 25px;
+}
+.Head_img{
+    width: 50px;
+}
