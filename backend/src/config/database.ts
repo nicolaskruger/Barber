@@ -36,10 +36,10 @@ const insertHairCut = `INSERT INTO HairCut(
     data
 )
 VALUES
-    ((SELECT id FROM Client WHERE name='punpun'),'2020-11-25'),
-    ((SELECT id FROM Client WHERE name='punpun'),'2020-11-26'),
-    ((SELECT id FROM Client WHERE name='Aiko Tanaka'),'2020-11-27'),
-    ((SELECT id FROM Client WHERE name='Aiko Tanaka'),'2020-11-28');
+    ((SELECT id FROM Client WHERE name='punpun'),'2020/11/25 12:00'),
+    ((SELECT id FROM Client WHERE name='punpun'),'2020/11/26 12:00'),
+    ((SELECT id FROM Client WHERE name='Aiko Tanaka'),'2020/11/27 12:00'),
+    ((SELECT id FROM Client WHERE name='Aiko Tanaka'),'2020/11/28 12:00'); 
 `;
 db.serialize(()=>{
     try {
