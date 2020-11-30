@@ -13,6 +13,8 @@ const ViewListaClientes_1 = require("../view/ViewListaClientes");
 const ClientList_1 = require("../model/ClientList");
 const HttpServiceClients_1 = require("../service/HttpServiceClients");
 const ViewTxtContent_1 = require("../view/ViewTxtContent");
+const ViewAtlClient_1 = require("../view/ViewAtlClient");
+const ViewAtlHairCut_1 = require("../view/ViewAtlHairCut");
 class BarberController extends Controller_1.Controller {
     constructor() {
         super();
@@ -42,6 +44,8 @@ class BarberController extends Controller_1.Controller {
         this.viewListClient = new ViewListaClientes_1.ViewListClient(this.$(".ClienteList__table"));
         this.viewHaircut = new ViewDef_1.ViewDef(this.$(".IncHairCut"));
         this.viewClient = new ViewDef_1.ViewDef(this.$(".IncClient"));
+        this.viewAClient = new ViewAtlClient_1.ViewAtlClient(this.$(".UpClient"));
+        this.viewAtlHC = new ViewAtlHairCut_1.ViewAtlHairCut(this.$(".UpHC"));
         this.imHaircut = new IMHairCut_1.IMHairCut(".InputHair", ".ErroMsg", ["Erro no formato da data", "cliente inextente"]);
         this.imClient = new IMClient_1.IMCLient(".InputCl", ".ErroMsgC", ["Nome Invalido", "Cpf Invalido"]);
         this.toogelButton = new ViewTxtContent_1.ViewTxContent(this.$(".toogle"));
@@ -52,6 +56,14 @@ class BarberController extends Controller_1.Controller {
                 .then(s => {
                 this.list.list = s;
                 this.viewListaCH.set(model);
+                document.querySelectorAll('.DelHairCut')
+                    .forEach((e, i) => {
+                    e.addEventListener("click", this.delHairCut.bind(this, i));
+                });
+                document.querySelectorAll(".AtlHairCut")
+                    .forEach((e, i) => {
+                    e.addEventListener("click", this.AtlHC.bind(this, i));
+                });
             });
         }, "atl");
         this.Clients = Bind_1.Bind.createFunc(new ClientList_1.ClientList(), (model) => {
@@ -59,14 +71,46 @@ class BarberController extends Controller_1.Controller {
                 .then(s => {
                 this.Clients.list = s;
                 this.viewListClient.set(this.Clients);
+                document.querySelectorAll('.DelClient')
+                    .forEach((e, i) => {
+                    e.addEventListener("click", this.delClient.bind(this, i));
+                });
+                document.querySelectorAll('.AtlClient')
+                    .forEach((e, i) => {
+                    e.addEventListener('click', this.AtlClient.bind(this, i));
+                });
             });
         });
+    }
+    delHairCut(i) {
+        new HttpServiceHC_1.HttpServiceHC().deleteHairCut(this.list.list[i].hair.id);
+    }
+    delClient(i) {
+        new HttpServiceClients_1.HttpServiceClients().deletClient(this.Clients.list[i].id);
+    }
+    Atl(i, thisView, list, clString, subString, close, submit) {
+        thisView.setInvisibity(false);
+        thisView.set(list[i]);
+        document.querySelector(clString).addEventListener("click", close.bind(this));
+        document.querySelector(subString).addEventListener("submit", submit.bind(this));
+    }
+    AtlClient(i) {
+        this.Atl(i, this.viewAClient, this.Clients.list, ".closeAClient", ".AtlClient__Form", this.closeAtlClient, this.sendAtlClient);
+    }
+    AtlHC(i) {
+        this.Atl(i, this.viewAtlHC, this.list.list, ".closeAHairCut", ".IncAHairCut__Form", this.closeAtlHairCut, this.sendAtlHC);
     }
     openAddClient() {
         this.viewClient.setInvisibity(false);
     }
     closeAddClient() {
         this.viewClient.setInvisibity(true);
+    }
+    closeAtlClient() {
+        this.viewAClient.setInvisibity(true);
+    }
+    closeAtlHairCut() {
+        this.viewAtlHC.setInvisibity(true);
     }
     openAddCut() {
         this.viewHaircut.setInvisibity(false);
@@ -79,6 +123,14 @@ class BarberController extends Controller_1.Controller {
     }
     sendHairCut() {
         this.imHaircut.getErroMsg();
+    }
+    sendAtlClient() {
+        new IMClient_1.IMCLient(".InputClA", ".ErroMsgCA", ["Nome Invalido", "Cpf Invalido"])
+            .getErroMsg();
+    }
+    sendAtlHC(event) {
+        new IMHairCut_1.IMHairCut(".InputHairHCA", ".ErroMsgAC", ["DataInvalida", "id inexistente"])
+            .getErroMsg();
     }
     toogleScreen() {
         this.toogleFunc[this.currT]();

@@ -9,15 +9,23 @@ class HttpServiceClients extends HttpServices_1.HttpService {
     getFullroute() {
         return (this.route() + "Client");
     }
+    delete() {
+        return this.route() + "delClient/";
+    }
     getList() {
         return this.get(this.getFullroute())
             .then(s => {
             let list = [];
             s.forEach(v => {
-                list.push(new Client_1.Client(v.name, v.cpf));
+                list.push(new Client_1.Client(v.name, v.cpf, v.id));
             });
             return list;
         })
+            .catch(err => console.log(err));
+    }
+    deletClient(i) {
+        let path = this.delete() + i.toString();
+        return this.del(path)
             .catch(err => console.log(err));
     }
 }

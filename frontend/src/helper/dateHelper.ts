@@ -4,7 +4,7 @@ function Z(n:number){
 export class DateHelper{
     
     static dataToString(date:Date):string{
-        return `${Z(date.getUTCDate())}/${Z(date.getMonth())}/${Z(date.getFullYear())} ${Z(date.getHours())}:${Z(date.getMinutes())}`;
+        return `${Z(date.getFullYear())}/${Z(date.getMonth())}/${Z(date.getUTCDate())} ${Z(date.getHours())}:${Z(date.getMinutes())}`;
     }
     static stringToDate(str:string):Date{
         let test = /(\d{1,4})\/(\d{1,2})\/(\d{1,2}) (\d{1,2}):(\d{1,2})/;

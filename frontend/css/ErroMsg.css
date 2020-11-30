@@ -1,4 +1,4 @@
-.ErroMsg,.ErroMsgC{
+.ErroMsg,.ErroMsgC,.ErroMsgCA, .ErroMsgAC{
     color: rgb(255, 2, 2);
     font-family: 'Courier New', Courier, monospace;
 }

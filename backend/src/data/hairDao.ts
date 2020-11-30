@@ -24,7 +24,7 @@ export class hairDao extends Dao{
         HairCut.data;`
     }
     private QueryHairClient(){
-        return `SELECT data, name FROM HairCut
+        return `SELECT data, name, HairCut.id as id,Client.id as idC  FROM HairCut
         INNER JOIN Client ON
         HairCut.idCliente = Client.id
         ORDER by data;`
@@ -40,6 +40,32 @@ export class hairDao extends Dao{
     private QueryIncludeClient(){
         return `INSERT INTO Client (name,cpf)
         VALUES (?,?);`;
+    }
+    private QueryDeleteHairCut(){
+        return `DELETE FROM HairCut 
+        WHERE id = ?;`
+    }
+    private QueryDeleteClient(){
+        return `DELETE FROM Client
+            WHERE id = ?;`
+        // return `DELETE FROM Client
+        // WHERE id = ?;
+        // DELETE FROM HairCut
+        // WHERE idCliente =?;`
+    }
+    private QueryUpdateClient(){
+        return `UPDATE Client
+        set name = ?,
+            cpf = ?
+        WHERE 
+            id = ?;`
+    }
+    private QueryUpdateHc(){
+        return `UPDATE HairCut
+        SET data = ?,
+            idCliente = ?
+        WHERE 
+            id = ?;`
     }
     Clients(){
         return this.select(this.clienteQuery(),[]);
@@ -61,5 +87,17 @@ export class hairDao extends Dao{
     }
     includeClient(cli:Client){
         return this.include(this.QueryIncludeClient(),[cli.name,cli.cpf]);
+    }
+    deleteHairCut(id:number){
+        return this.include(this.QueryDeleteHairCut(),[id]);
+    }
+    deleteClient(id:number){
+        return this.include(this.QueryDeleteClient(),[id]);
+    }
+    updateClient(client:Client){
+        return this.include(this.QueryUpdateClient(),[client.name,client.cpf,client.id]);
+    }
+    updateHC(hair:HairCut){
+        return this.include(this.QueryUpdateHc(),[hair.date,hair.idCliet,hair.id]);
     }
 }

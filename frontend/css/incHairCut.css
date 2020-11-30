@@ -2,7 +2,7 @@
     --bcColor: rgb(112, 89, 89);
     --separator: 2px
 }
-.IncHairCut,.IncClient{
+.IncHairCut,.IncClient,.UpClient,.UpHC{
     position: fixed;
     left: 0;
     top: 0;
@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
 }
-.IncHairCut__Form,.IncClient__Form{
+.IncHairCut__Form,.IncClient__Form,.IncAHairCut__Form{
     display: flex;
     flex-direction: column;
     align-items: center;

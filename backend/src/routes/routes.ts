@@ -7,6 +7,7 @@ import {Client} from '../models/Client';
 import { DateHelper } from '../helper/dateHelper';
 import {ValiDate} from '../models/ValidaDate';
 import {validCPF} from '../helper/ValidCpf';
+import { Dao } from '../data/Dao';
 
 const routes = Router();
 
@@ -72,6 +73,34 @@ routes.post('/addClient',(req,res)=>{
     simpleIncludeRoute(req,res,
         (dao:hairDao,{client}:MsgDTO)=>dao.includeClient(client),
         ()=>req.body.name!=''&& validCPF(req.body.cpf));
+})
+routes.delete('/delHairC/:id',(req,res)=>{
+    simpleIncludeRoute(req,res,
+        (dao:hairDao,{id}:MsgDTO)=>dao.deleteHairCut(id))
+})
+routes.delete('/delClient/:id',(req,res)=>{
+    simpleIncludeRoute(req,res,
+        (dao:hairDao,{id}:MsgDTO)=>dao.deleteClient(id));
+})
+routes.post('/addClient/:id',(req,res)=>{
+    simpleIncludeRoute(req,res,
+        (dao:hairDao,{id,client}:MsgDTO)=>{
+            client.id = id;
+            return dao.updateClient(client);
+        },()=>req.body.name!=''&& validCPF(req.body.cpf));
+})
+routes.post('/addHairCut/:id',(req,res)=>{
+    simpleRoute(req,res,
+        ((dao:hairDao,{hairCut}:MsgDTO)=>dao.ClientById(hairCut.idCliet as number)))
+        .then((r)=>{
+            if((r as Client[]).length==0)throw "Client not found";
+            return simpleIncludeRoute(req,res,
+                (dao:hairDao,{id,hairCut}:MsgDTO)=>{
+                    hairCut.id = id;
+                    return dao.updateHC(hairCut);
+                })
+        }).catch(err=>{console.log(err);res.status(204).send();})
+    
 })
  
 

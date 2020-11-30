@@ -31,4 +31,16 @@ export class HttpService {
         })
             .then(res=>this._handleErros(res));
     }
+    del(url){
+        return fetch(url,{
+            headers:{'Content-type':'application/json'},
+            method: 'delete',
+            redirect: 'follow',
+        })
+            .then(res=>{
+                console.log(res);
+                window.location.href = res.url;
+                return this._handleErros(res)
+            });
+    }
 }

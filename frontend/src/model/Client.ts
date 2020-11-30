@@ -4,9 +4,10 @@ export class Client{
     id?:number;
     name:string;
     cpf:string;
-    constructor(name:string,cpf:string){
+    constructor(name:string,cpf:string,id?:number){
         this.name = name;
         this.cpf = cpf;
+        this.id = id;
     }
     static contructByValues(val:any[]){
         return new Client(val[0]as string,val[1] as string);

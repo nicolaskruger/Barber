@@ -16,7 +16,6 @@ export class IMHairCut extends inputManipulator{
                 .then(s=>{
                     this.trueVet[0]= ValiDate.dateValid(val[0])
                     this.trueVet[1]= Array.from(s).length>0;
-                    console.log(this.trueVet);
                     this.trueVet.forEach((val,i)=>{
                         this.viewMsg[i].set(new Msg(val?'':this.erroMsg[i]));
                     })
