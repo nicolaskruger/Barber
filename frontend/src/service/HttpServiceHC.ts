@@ -4,6 +4,8 @@ import {ListCHJoin} from '../model/ListCHJoin';
 import { HairCut } from '../model/HairCut';
 import {DateHelper} from '../helper/dateHelper';
 import { Client } from '../model/Client';
+import {anyToCHJoin} from '../helper/dataConverter';
+
 export class HttpServiceHC extends HttpService{
     constructor(){
         super();
@@ -14,18 +16,15 @@ export class HttpServiceHC extends HttpService{
     private Client(){
         return this.route()+"Client"
     }
+    private hcLike(){
+        return this.route()+"HCLike/"
+    }
     private delete(){
         return this.route()+"delHairC/";
     }
     getList(){
         return this.get(this.getFullroute())
-            .then(s=>{
-                let list:CHjoin[] = [];
-                (s as any[]).forEach(v=>{
-                    list.push(new CHjoin(new HairCut(DateHelper.stringToDate(v.data),v.id,v.idC),new Client(v.name,"",Number.parseInt(v.idC))))
-                })
-                return  list;
-            })
+            .then(s=>anyToCHJoin(s))
             .catch(err=>console.log(err))        
         
     }
@@ -33,6 +32,11 @@ export class HttpServiceHC extends HttpService{
         let path = this.delete()+i.toString();
         return this.del(path)
                 .catch(err=>console.log(err));
+    }
+    like(name:string){
+        return this.get(this.hcLike()+name)
+                    .then(s=>anyToCHJoin(s))
+                    .catch(err=>console.log(err));
     }
     
     

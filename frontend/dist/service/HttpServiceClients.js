@@ -12,6 +12,9 @@ class HttpServiceClients extends HttpServices_1.HttpService {
     delete() {
         return this.route() + "delClient/";
     }
+    like() {
+        return this.route() + "clientLike/";
+    }
     getList() {
         return this.get(this.getFullroute())
             .then(s => {
@@ -26,6 +29,10 @@ class HttpServiceClients extends HttpServices_1.HttpService {
     deletClient(i) {
         let path = this.delete() + i.toString();
         return this.del(path)
+            .catch(err => console.log(err));
+    }
+    clientLike(name) {
+        return this.get(this.like() + name)
             .catch(err => console.log(err));
     }
 }

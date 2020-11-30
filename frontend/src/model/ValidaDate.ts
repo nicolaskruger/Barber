@@ -2,6 +2,7 @@ import {DateHelper} from '../helper/dateHelper';
 
 export class ValiDate{
     static dateValid(str:string){
+        console.log("val");
         if(ValiDate.valiHair(str)){
             let data = DateHelper.stringToDate(str);
             console.log(data.getMinutes());

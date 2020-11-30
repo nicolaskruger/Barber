@@ -102,6 +102,26 @@ routes.post('/addHairCut/:id',(req,res)=>{
         }).catch(err=>{console.log(err);res.status(204).send();})
     
 })
+routes.get('/clientLike',(req,res)=>{
+    simpleQueryRoute(req,res,
+        ((dao:hairDao,{}:MsgDTO)=>{
+            return dao.Clients();
+        }));
+})
+routes.get('/clientLike/:name',(req,res)=>{
+    simpleQueryRoute(req,res,
+        ((dao:hairDao,{}:MsgDTO)=>{
+            return dao.likeClient(req.params.name)
+        }));
+})
+routes.get('/HCLike',(req,res)=>{
+    simpleQueryRoute(req,res,
+        ((dao:hairDao,{}:MsgDTO)=>dao.HairClient()))
+})
+routes.get('/HCLike/:name',(req,res)=>{
+    simpleQueryRoute(req,res,
+        ((dao:hairDao,{}:MsgDTO)=>dao.likeHC(req.params.name)))
+})
  
 
 

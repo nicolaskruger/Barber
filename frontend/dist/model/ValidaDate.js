@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dateHelper_1 = require("../helper/dateHelper");
 class ValiDate {
     static dateValid(str) {
+        console.log("val");
         if (ValiDate.valiHair(str)) {
             let data = dateHelper_1.DateHelper.stringToDate(str);
             console.log(data.getMinutes());

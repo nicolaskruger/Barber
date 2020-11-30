@@ -67,6 +67,22 @@ export class hairDao extends Dao{
         WHERE 
             id = ?;`
     }
+    private QuerySelectClientLike(){
+        return `
+        SELECT * from Client
+        WHERE name LIKE ?
+        ORDER by name;
+        `
+    }
+    private QuerySelectHCLike(){
+        return `
+        SELECT data, name, HairCut.id as id,Client.id as idC  FROM HairCut
+        INNER JOIN Client ON
+        HairCut.idCliente = Client.id
+        WHERE name LIKE ?
+        ORDER by data;
+        `
+    }
     Clients(){
         return this.select(this.clienteQuery(),[]);
     }
@@ -99,5 +115,11 @@ export class hairDao extends Dao{
     }
     updateHC(hair:HairCut){
         return this.include(this.QueryUpdateHc(),[hair.date,hair.idCliet,hair.id]);
+    }
+    likeClient(name:string){
+        return this.select(this.QuerySelectClientLike(),[`%${name}%`]);
+    }
+    likeHC(name:string){
+        return this.select(this.QuerySelectHCLike(),[`%${name}%`]);
     }
 }

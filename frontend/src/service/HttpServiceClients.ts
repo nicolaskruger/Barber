@@ -11,6 +11,9 @@ export class HttpServiceClients extends HttpService{
     private delete(){
         return this.route()+"delClient/";
     }
+    private like(){
+        return this.route()+"clientLike/";
+    }
     getList(){
         return this.get(this.getFullroute())
             .then(s=>{
@@ -23,11 +26,16 @@ export class HttpServiceClients extends HttpService{
             .catch(err=>console.log(err))        
                     
     }
+
     deletClient(i:number){
             let path = this.delete()+i.toString();
             return this.del(path)
                     .catch(err=>console.log(err));
     }
 
+    clientLike(name:string){
+        return this.get(this.like()+name)
+                    .catch(err=>console.log(err));
+    }
     
 }

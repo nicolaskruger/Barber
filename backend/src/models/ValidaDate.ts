@@ -10,6 +10,6 @@ export class ValiDate{
         return false;
     }
     private static valiHair(str:string){
-        return /(\d{4})\/(\d{2})\/(\d{2}) (\d{2}):(\d{2})/.test(str);
+        return /(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01]) (\d{2}):(\d{2})/.test(str);
     }
 }

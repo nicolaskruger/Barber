@@ -1,0 +1,15 @@
+.filter{
+    width: 80vw;
+    display: flex;
+    padding-top: 20px;
+    justify-content: flex-end;
+}
+.filter__img{
+    width: 20px;
+    background-color: white;
+    border-radius: 0 10px 10px 0;
+}
+.filter__input{
+    border: 1px white;
+    border-radius: 10px 0 0 10px;
+}

@@ -37,6 +37,7 @@ export class BarberController extends Controller{
     toogleHaircut:ViewDef;
     toogleClient:ViewDef;
     toogelButton:ViewTxContent;
+    serch:HTMLInputElement;
     toogleFunc = [
         ()=>{
             this.toogleHaircut.setInvisibity(true);
@@ -72,21 +73,12 @@ export class BarberController extends Controller{
         this.toogelButton = new ViewTxContent(this.$(".toogle"));
         this.toogleClient = new ViewDef(this.$(".Client"))
         this.toogleHaircut = new ViewDef(this.$(".Main"));
+        this.serch = this.$('.filter__input');
         this.list = Bind.createFunc(new ListCHJoin(),(model:ListCHJoin)=>{
         
             new HttpServiceHC().getList()
                         .then(s =>{
-                            this.list.list =s as CHjoin[];
-                            this.viewListaCH.set(model);
-                            document.querySelectorAll('.DelHairCut')
-                                    .forEach((e,i)=>{
-                                        e.addEventListener("click",this.delHairCut.bind(this,i));
-                                    })
-                            document.querySelectorAll(".AtlHairCut")
-                                    .forEach((e,i)=>{
-                                        e.addEventListener("click",this.AtlHC.bind(this,i))
-                                    })
-                            
+                            this.setHC(s as CHjoin[]);
                         })
                         
             
@@ -94,7 +86,13 @@ export class BarberController extends Controller{
         this.Clients = Bind.createFunc(new ClientList(),(model:ClientList)=>{
             new HttpServiceClients().getList()
                 .then(s=>{
-                    this.Clients.list =s as Client[];
+                    this.setClient(s as Client[]);
+                })
+               
+        })
+    }
+    private setClient(s:Client[]){
+        this.Clients.list =s as Client[];
                     this.viewListClient.set(this.Clients);
                     document.querySelectorAll('.DelClient')
                             .forEach((e,i)=>{
@@ -104,9 +102,20 @@ export class BarberController extends Controller{
                             .forEach((e,i)=>{
                                 e.addEventListener('click',this.AtlClient.bind(this,i))
                             })
+    }
+    private setHC(s:CHjoin[]){
+        console.log(s);
+        this.list.list=s;
+        this.viewListaCH.set(this.list);
+        document.querySelectorAll('.DelHairCut')
+                .forEach((e,i)=>{
+                    e.addEventListener("click",this.delHairCut.bind(this,i));
                 })
-               
-        })
+        document.querySelectorAll(".AtlHairCut")
+                .forEach((e,i)=>{
+                    e.addEventListener("click",this.AtlHC.bind(this,i))
+                })
+                            
     }
     delHairCut(i:number){
         new HttpServiceHC().deleteHairCut(this.list.list[i].hair.id)
@@ -161,5 +170,17 @@ export class BarberController extends Controller{
     toogleScreen(){
         this.toogleFunc[this.currT]();
         this.currT= (this.currT+1)%this.toogleFunc.length;
+    }
+    search(){
+        let name =this.serch.value;
+        new HttpServiceClients().clientLike(name)
+                .then(s=>{
+                    this.setClient(s as Client[]);
+                })
+       new HttpServiceHC().like(name)
+                .then(s=>{
+                    console.log(s);
+                    this.setHC(s as CHjoin[])
+                })
     }
 }

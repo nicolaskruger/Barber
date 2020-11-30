@@ -51,35 +51,43 @@ class BarberController extends Controller_1.Controller {
         this.toogelButton = new ViewTxtContent_1.ViewTxContent(this.$(".toogle"));
         this.toogleClient = new ViewDef_1.ViewDef(this.$(".Client"));
         this.toogleHaircut = new ViewDef_1.ViewDef(this.$(".Main"));
+        this.serch = this.$('.filter__input');
         this.list = Bind_1.Bind.createFunc(new ListCHJoin_1.ListCHJoin(), (model) => {
             new HttpServiceHC_1.HttpServiceHC().getList()
                 .then(s => {
-                this.list.list = s;
-                this.viewListaCH.set(model);
-                document.querySelectorAll('.DelHairCut')
-                    .forEach((e, i) => {
-                    e.addEventListener("click", this.delHairCut.bind(this, i));
-                });
-                document.querySelectorAll(".AtlHairCut")
-                    .forEach((e, i) => {
-                    e.addEventListener("click", this.AtlHC.bind(this, i));
-                });
+                this.setHC(s);
             });
         }, "atl");
         this.Clients = Bind_1.Bind.createFunc(new ClientList_1.ClientList(), (model) => {
             new HttpServiceClients_1.HttpServiceClients().getList()
                 .then(s => {
-                this.Clients.list = s;
-                this.viewListClient.set(this.Clients);
-                document.querySelectorAll('.DelClient')
-                    .forEach((e, i) => {
-                    e.addEventListener("click", this.delClient.bind(this, i));
-                });
-                document.querySelectorAll('.AtlClient')
-                    .forEach((e, i) => {
-                    e.addEventListener('click', this.AtlClient.bind(this, i));
-                });
+                this.setClient(s);
             });
+        });
+    }
+    setClient(s) {
+        this.Clients.list = s;
+        this.viewListClient.set(this.Clients);
+        document.querySelectorAll('.DelClient')
+            .forEach((e, i) => {
+            e.addEventListener("click", this.delClient.bind(this, i));
+        });
+        document.querySelectorAll('.AtlClient')
+            .forEach((e, i) => {
+            e.addEventListener('click', this.AtlClient.bind(this, i));
+        });
+    }
+    setHC(s) {
+        console.log(s);
+        this.list.list = s;
+        this.viewListaCH.set(this.list);
+        document.querySelectorAll('.DelHairCut')
+            .forEach((e, i) => {
+            e.addEventListener("click", this.delHairCut.bind(this, i));
+        });
+        document.querySelectorAll(".AtlHairCut")
+            .forEach((e, i) => {
+            e.addEventListener("click", this.AtlHC.bind(this, i));
         });
     }
     delHairCut(i) {
@@ -135,6 +143,18 @@ class BarberController extends Controller_1.Controller {
     toogleScreen() {
         this.toogleFunc[this.currT]();
         this.currT = (this.currT + 1) % this.toogleFunc.length;
+    }
+    search() {
+        let name = this.serch.value;
+        new HttpServiceClients_1.HttpServiceClients().clientLike(name)
+            .then(s => {
+            this.setClient(s);
+        });
+        new HttpServiceHC_1.HttpServiceHC().like(name)
+            .then(s => {
+            console.log(s);
+            this.setHC(s);
+        });
     }
 }
 exports.BarberController = BarberController;

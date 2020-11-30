@@ -10,4 +10,5 @@ controller.Init()
         document.querySelector('.closeHairCut').addEventListener('click',controller.closeAddCut.bind(controller));
         document.querySelector('.closeClient').addEventListener('click',controller.closeAddClient.bind(controller));
         document.querySelector('.toogle').addEventListener('click',controller.toogleScreen.bind(controller));
+        document.querySelector('.filter__input').addEventListener('input',controller.search.bind(controller));
     })
